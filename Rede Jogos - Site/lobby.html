@@ -1,0 +1,2221 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title> :: Jogo Truco :: Lobby </title>
+    <link href="estilo/normalize.css" rel="stylesheet" />
+    <link href="estilo/lobby.css" rel="stylesheet" />
+    <link href="estilo/tooltipster.css" rel="stylesheet" />
+    <link href="estilo/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="estilo/jBox.css" rel="stylesheet" />
+
+    <script src="js/uteis.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <script src="js/1.11.1.jquery.min.js"></script>
+    <script src="js/jquery.tooltipster.min.js"></script>
+    <script src="js/transit.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/jBox.min.js"></script>
+
+    <script src="js/socket.io-1.1.0.js"></script>
+    <script src="js/socket.io.client.js"></script>
+
+    <script>
+        function zeraLobby()
+        {
+            $(".boxLobby").css("display", "none");
+        }
+
+        function showLobby(index)
+        {
+            $(".boxLobby:eq("+index+")").css("display", "block");
+        }
+
+        $(document).ready(function () {
+            $('.toolLivre').tooltipster({
+                position: 'bottom'
+            });
+
+            $('.toolOcu').tooltipster({
+                interactive: true,
+                position: 'bottom'
+            });
+
+            // Informo que a caixa de texto é mCustomScrollbar e não terá scrollbar
+            $(".c_msg, .c_msg_hat_user").mCustomScrollbar({
+                setTop: "-9999px",
+                autoHideScrollbar: true
+            });
+
+            $(".btnPlayTopMask").mouseout(function () {
+                $(".btnPlayTop").transition({ marginTop: 0 });
+            }).mouseover(function () {
+                $(".btnPlayTop").transition({ marginTop: 6 });
+            });
+
+            $(".helpMask").mouseout(function () {
+                $(".imgHelp").transition({ rotate: '0deg', scale: 1.0 });
+                $(".help .descr").removeClass("fundoBranco");
+            }).mouseover(function () {
+                $(".imgHelp").transition({ rotate: '-10deg', scale: 1.1 });
+                $(".help .descr").addClass("fundoBranco");
+            });
+
+            $(".regrasMask").mouseout(function () {
+                $(".imgRegras").transition({ rotate: '0deg', scale: 1.0 });
+                $(".regras .descr").removeClass("fundoBranco");
+            }).mouseover(function () {
+                $(".imgRegras").transition({ rotate: '-15deg', scale: 1.1 });
+                $(".regras .descr").addClass("fundoBranco");
+            });
+
+            $("#checkSenha").click(function () {
+                if ($(".modalFieldSenha").css("visibility") == "hidden")
+                    $(".modalFieldSenha").css("visibility", "visible");
+                else {
+                    $(".modalFieldSenha").css("visibility", "hidden");
+                }
+            });
+
+            $(".btnEntra").bind("click", function () {
+                var nMesa = parseInt($(this).closest(".boxSala").find(".numSala h3").text());
+                var nCad = $(this).closest(".boxCad").index();
+
+                socket.emit('entra-sala', nMesa, nCad);
+
+                
+                
+                //var img = getUrlParameters("img", "", false);
+
+                //$(this).css("display","none").closest(".boxCad").find(".cadAvatar").attr("src", img).addClass("showAvatar");
+            });
+
+            $("#menuLobbyOpt li").bind("click", function () {
+                var opt = $(this).index();
+                zeraLobby();
+                switch (opt)
+                {
+                    case 0:
+                        showLobby(0);
+                        $(".optionSelect").transition({ marginTop: 2 });
+                        break;
+                    case 1:
+                        showLobby(1);
+                        $(".optionSelect").transition({ marginTop: 29 });
+                        break;
+                    case 2:
+                        showLobby(2);
+                        $(".optionSelect").transition({ marginTop: 56 });
+                        break;
+                    case 3:
+                        showLobby(3);
+                        $(".optionSelect").transition({ marginTop: 83 });
+                        break;
+                    case 4:
+                        showLobby(4);
+                        $(".optionSelect").transition({ marginTop: 110 });
+                        break;
+                    case 5:
+                        showLobby(5);
+                        $(".optionSelect").transition({ marginTop: 137 });
+                        break;
+                }
+            });
+
+            $(".btnDownOpt").bind("click", function () {
+                var pos = $(".optionSelect").css("margin-top");
+                switch (pos) {
+                    case "2px":
+                        zeraLobby();
+                        showLobby(1);
+                        $(".optionSelect").transition({ marginTop: 29 });
+                        break;
+                    case "29px":
+                        zeraLobby();
+                        showLobby(2);
+                        $(".optionSelect").transition({ marginTop: 56 });
+                        break;
+                    case "56px":
+                        zeraLobby();
+                        showLobby(3);
+                        $(".optionSelect").transition({ marginTop: 83 });
+                        break;
+                    case "83px":
+                        zeraLobby();
+                        showLobby(4);
+                        $(".optionSelect").transition({ marginTop: 110 });
+                        break;
+                    case "110px":
+                        zeraLobby();
+                        showLobby(5);
+                        $(".optionSelect").transition({ marginTop: 137 });
+                        break;
+                    case "137px":
+                        zeraLobby();
+                        showLobby(0);
+                        $(".optionSelect").transition({ marginTop: 2 });
+                        break;
+                }
+            });
+
+            $(".btnUpOpt").bind("click", function () {
+                var pos = $(".optionSelect").css("margin-top");
+                switch (pos) {
+                    case "2px":
+                        zeraLobby();
+                        showLobby(5);
+                        $(".optionSelect").transition({ marginTop: 137 });
+                        break;
+                    case "29px":
+                        zeraLobby();
+                        showLobby(0);
+                        $(".optionSelect").transition({ marginTop: 2 });
+                        break;
+                    case "56px":
+                        zeraLobby();
+                        showLobby(1);
+                        $(".optionSelect").transition({ marginTop: 29 });
+                        break;
+                    case "83px":
+                        zeraLobby();
+                        showLobby(2);
+                        $(".optionSelect").transition({ marginTop: 56 });
+                        break;
+                    case "110px":
+                        zeraLobby();
+                        showLobby(3);
+                        $(".optionSelect").transition({ marginTop: 83 });
+                        break;
+                    case "137px":
+                        zeraLobby();
+                        showLobby(4);
+                        $(".optionSelect").transition({ marginTop: 110 });
+                        break;
+                }
+            });
+
+            $("#SendChatLob").click(function () {
+                var msg = $(".c_txt").val().trim();
+                if(msg != "") {
+                    socket.emit('msg-chat', msg);
+                    $("#mCSB_1_container").append("<p class=\"c_msg_user\"><span> " + login + ": </span>" + $(".c_txt").val() + "</p>");
+                    $(".c_msg").mCustomScrollbar("scrollTo", "bottom", { scrollInertia: 0 });
+                    $(".c_txt").val("");
+                }
+            });
+
+            $("#CriarSala").click(function () {
+                socket.emit('cria-sala', $("#checkPrivado").prop("checked"), $("#txtSenhaSala").val());
+            });
+
+            $("#EntraPartidaPass").click(function () {
+                socket.emit('entra-sala-pass', $("#txtSenhaEntra").val(), myMesa);
+            });
+        });
+    </script>
+</head>
+<body style="background-color:#9BA69E;background:url(../images/background.jpg);">    
+    <img style="display:none;" src="../images/background.jpg" />
+    <img style="display:none;" src="../images/cenario.png" />
+    
+    <div id="modalAdmin" style="display:none;">
+        <div class="modalMesa">
+            <div class="boxCadAdmin">
+                <span class="btnStyleEntra toolLivre tooltipstered">ENTRAR</span>
+                <img class="cadAvatar" src="">
+            </div>
+            <div class="boxCadAdmin">
+                <span class="btnStyleEntra toolLivre tooltipstered">ENTRAR</span>
+                <img class="cadAvatar" src="">
+            </div>
+            <div class="boxCadAdmin">
+                <span class="btnStyleEntra toolLivre tooltipstered">ENTRAR</span>
+                <img class="cadAvatar" src="">
+            </div>
+            <div class="boxCadAdmin">
+                <span class="btnStyleEntra toolLivre tooltipstered">ENTRAR</span>
+                <img class="cadAvatar" src="">
+            </div>
+            <div class="boxModalMesa"></div>
+        </div>
+        <div id="modalConfigSelect" class="modalConfig" style="display:none;">
+            <div class="boxModalConfig">
+                <div class="modalBoxField">
+                    <p>Escolha o seu parceiro:</p>
+                    <p>
+                        <select id="comboEquipe">
+                            <option>Selecione..</option>
+                        </select>
+                    </p>
+                    <div class="modalFieldInfo"><span>O jogo só poderá começar, quando a mesa completar 4 jogadores!</span></div>
+                </div>
+                <p><input id="ComecaPartida" class="c_btn_enviar botao_cria_sala botao_disable" type="button" value="Começar Partida!" disabled/></p>
+            </div>
+        </div>
+        <div id="modalConfigUsuario" class="modalConfig" style="display:none;">
+            <div class="boxModalConfig">
+                <div class="modalBoxField">
+                    <p>O administrador da mesa irá montar as equipes, e logo em seguida irá começar a partida!</p>
+                </div>
+            </div>
+        </div>
+        <div id="modalConfigSenha" class="modalConfig" style="display:none;">
+            <div class="boxModalConfig" style="padding-top:30px;">
+                <div class="modalBoxField">
+                    <p>Está mesa possui senha, informe no campo abaixo para se sentar!</p>
+                    <p>Senha: <input id="txtSenhaEntra" type="text" /> </p>
+                    <p><input id="EntraPartidaPass" class="c_btn_enviar botao_pass_sala" type="button" value="Entrar" /></p>
+                </div>
+            </div>
+        </div>
+        <div id="modalConfigAdmin" class="modalConfig" style="display:none;">
+            <div class="boxModalConfig">
+                <div class="modalBoxField">
+                    <p><label class="modalOpt"><input type="checkbox" id="checkPrivado" /> Mesa Privada</label></p>
+                    <p class="modalDescr">Caso marque a opção acima, o jogo não poderá ser assistido por outros usuários.</p>
+                </div>
+
+                <div class="modalBoxField">
+                    <p><label class="modalOpt"><input type="checkbox" id="checkSenha" /> Senha</label></p>
+                    <p class="modalFieldSenha"><input id="txtSenhaSala" type="password" /></p>
+                </div>
+                <div class="modalFieldInfo"><span>Este jogo não contabilizará no rank!</span><br /><a href="">Saiba mais</a></div>
+            </div>
+            <p><input id="CriarSala" class="c_btn_enviar btn_cria_sala" type="button" value="Criar Mesa" /></p>
+        </div>
+        </div>
+
+    <div id="modalVisitante" style="display:none;">
+        <div class="modalMesa"></div>
+        <div class="modalConfig"></div>
+    </div>
+
+        <section id="agrup">
+            <section id="first">
+                <div id="game"></div>
+
+                <div class="btnPlayTopMask"></div>
+                <div class="btnPlayTop">
+                    <h1>JOGAR AGORA!</h1>
+                    <hr />
+                    <div class="fundo">
+                        <p>mesa rankeada</p>
+                        <div class="trofeu"></div>
+                    </div>
+                </div>
+                <div class="btnPlayBack"></div>
+
+                <div class="stats">
+                    <div class="players">
+                        <h2>Jogadores</h2>
+                        <p>0</p>
+                    </div>
+                    <div class="divisa">
+                        <div class="divisa_vert"></div>
+                        <div class="divisa_vertNight"></div>
+                    </div>
+                    <div class="rounds">
+                        <h2>Partidas</h2>
+                        <p>0</p>
+                    </div>
+                </div>
+
+                <div class="fastMenu">
+                    <div class="helpMask"></div>
+                    <div class="help">
+                        <div class="imgHelp"></div>
+                        <div class="descr">Entenda nosso lobby em alguns passos!</div>
+                    </div>
+                    <div class="boxDivisa">
+                        <div class="divisa_horiNight"></div>
+                        <div class="divisa_hori"></div>
+                    </div>
+                    <div class="regrasMask"></div>
+                    <div class="regras">
+                        <div class="imgRegras"></div>
+                        <div class="descr">Clique aqui para aprender as regras do jogo!</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="second">
+                <div class="boxLobby">
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>1</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>2</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>3</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>4</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>5</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>6</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>7</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>8</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>9</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>10</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxLobby" style="display:none;">
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>11</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>12</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>13</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>14</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>15</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>16</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>17</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>18</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>19</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>20</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxLobby" style="display:none;">
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>21</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>22</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>23</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>24</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>25</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>26</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>27</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>28</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>29</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>30</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxLobby" style="display:none;">
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>31</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>32</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>33</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>34</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>35</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>36</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>37</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>38</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>39</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>40</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxLobby" style="display:none;">
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>41</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>42</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>43</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>44</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>45</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>46</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>47</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>48</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>49</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>50</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="boxLobby" style="display:none;">
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>51</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>52</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>53</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>54</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>55</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>56</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>57</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>58</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>59</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxSala">
+                        <div class="topSala">
+                            <div class="numSala">
+                                <h3>60</h3>
+                            </div>
+                            <div class="descSala">
+                                <h4>Mesa Pública</h4>
+                                <p class="st1"></p>
+                            </div>
+                        </div>
+                        <div class="cadSala">
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                            <div class="boxCad">
+                                <span class="btnEntra toolLivre" title="Sentar-se!" />ENTRAR</span>
+                                <img class="cadAvatar" src="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="optionLobby">
+                    <div class="bodyOption">
+                        <div class="headIntOption">
+                            <h5>LOBBY</h5>
+                            <h6>1</h6>
+                        </div>
+                        <div class="bodyIntOption">
+                            <div class="optionSelect"></div>
+                            <ul id="menuLobbyOpt">
+                                <li>01 - 10</li>
+                                <li>11 - 20</li>
+                                <li>21 - 30</li>
+                                <li>31 - 40</li>
+                                <li>41 - 50</li>
+                                <li>51 - 60</li>
+                            </ul>
+                        </div>
+                        <div class="bottomIntOption">
+                            <input type="button" class="btnUpOpt" />
+                            <input type="button" class="btnDownOpt" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="three">
+                <div class="chat">
+                    <div class="c_topo">
+                        <div class="c_subtopo">CHAT</div>
+                    </div>
+                    <div class="c_msg">
+                        <p class="c_msg_sys">Seja Bem-Vindo ao jogo de Truco!</p>
+                    </div>
+                    <div class="c_box">
+                        <div class="c_sub_box">
+                            <input class="c_txt" type="text" placeholder="Escreva sua mensagem..." value="" />
+                        </div>
+                        <div class="c_sub_btn">
+                            <input id="SendChatLob" class="c_btn_enviar" type="button" value="Enviar" />
+                        </div>
+                    </div>
+                </div>
+                <div class="users">
+                    <div class="c_topo_hat">
+                        <div class="c_subtopo_hat">USUÁRIOS</div>
+                    </div>
+                    <div class="c_msg_hat_user">
+                    </div>
+                </div>
+                <div class="menu">
+                    <div class="c_topo_hat">
+                        <div class="c_subtopo_hat">OPÇÕES</div>
+                    </div>
+                    <div class="c_msg_hat">
+                        <ul class="opcoes">
+                            <li>
+                                <a href="#">Ranking</a>
+                                <div class="divisa_horiOpcNight"></div>
+                                <div class="divisa_horiOpc"></div>
+                            </li>
+                            <li>
+                                <a href="#">Desabilitar Som</a><div class="divisa_horiOpcNight"></div>
+                                <div class="divisa_horiOpc"></div>
+                            </li>
+                            <li>
+                                <a href="#">Recarregar Cenário</a><div class="divisa_horiOpcNight"></div>
+                                <div class="divisa_horiOpc"></div>
+                            </li>
+                            <li>
+                                <a href="#">Suporte Técnico</a><div class="divisa_horiOpcNight"></div>
+                                <div class="divisa_horiOpc"></div>
+                            </li>
+                            <li><a href="#">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+
+
+
+
+        <section class="menuLoad">
+            <h1>Carregando...</h1>
+            <p>Importando bibliotecas</p>
+        </section>
+        <script type="text/javascript">
+
+            function loadCenario()
+            {
+                $('body').css("background", "url(../images/background.jpg)");
+            }
+
+            function iniplay()
+            {
+                window.setTimeout(function () {
+                    $('.menuLoad p').text("Exibindo lobby");
+                }, 1000);
+
+                window.setTimeout(function () {
+                    $('.menuLoad').hide();
+                    loadCenario();
+                }, 2000);
+            }
+
+            function playlib() {
+                var nick = getUrlParameters("nick", "", false);
+                var img = getUrlParameters("img", "", false);
+                $('.menuLoad p').text("Importando imagens");
+                $(window).load(function () {
+                    window.setTimeout(iniplay, 1000);
+                });
+            }
+
+            var script = document.createElement('script');
+            script.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"; // URL do seu script aqui
+            document.body.appendChild(script);
+            script.onload = playlib;
+        </script>
+</body>
+</html>

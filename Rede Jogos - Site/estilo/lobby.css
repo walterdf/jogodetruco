@@ -1,0 +1,848 @@
+﻿* {
+    padding:0;
+    margin:auto;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    background:url(../images/background_off.jpg);
+}
+
+p {
+    font:15px;
+    color:#fff;
+}
+
+.menuLoad {
+    position: absolute;
+    height: 200px;
+    width: 357px;
+    left: 50%;
+    top: 50%;
+    margin-top: -110px;
+    margin-left: -188px;
+    background:url(../images/banner_load.png);
+    padding:20px 0 0 20px;
+}
+
+.menuLoad h1 {
+    color:#fff;
+    font:28px Arial;
+}
+
+.menuLoad p {
+    font:12px Verdana;
+    color:#FFFFFF;
+    padding-top:10px;
+    letter-spacing:-1px;
+}
+
+
+/*//Agrupador/////////////////////////////////*/
+
+#agrup {
+    width:1351px;
+    height:100%;
+    overflow:auto;    
+}
+
+#first {
+    width:235px;
+    height:100%;
+    float:left;
+    padding:14px 0 0 0;
+    overflow:auto;
+}
+
+#second {
+    padding-top:19px;
+    width:1116px;
+    height:396px;
+    float:right;
+}
+
+#three {
+    width:1101px;
+    height:230px;
+    padding:13px 0 0 15px;
+    float:right;
+}
+
+/*//First/////////////////////////////////*/
+
+#game {
+    height:211px;
+    width:216px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -16px -62px;
+    margin-bottom: 17px;
+}
+
+.btnPlayBack {
+    position:absolute;
+    margin: 10px 0 0 25px;
+    width: 190px;
+    height:87px;
+    border-radius: 15px;
+    background: #ffbf00;
+    background: -moz-linear-gradient(160deg,  #ffbf00 48%, #9b7400 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(48%,#ffbf00), color-stop(100%,#9b7400));
+    background: -webkit-linear-gradient(160deg,  #ffbf00 48%,#9b7400 100%);
+    background: -o-linear-gradient(160deg,  #ffbf00 48%,#9b7400 100%);
+    background: -ms-linear-gradient(160deg,  #ffbf00 48%,#9b7400 100%);
+    background: linear-gradient(160deg,  #ffbf00 48%,#9b7400 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbf00', endColorstr='#9b7400',GradientType=1 );
+    z-index:1;
+    -webkit-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.69);
+    -moz-box-shadow:    0px 0px 12px 0px rgba(0, 0, 0, 0.69);
+    box-shadow:         0px 0px 12px 0px rgba(0, 0, 0, 0.69);
+}
+    
+.btnPlayTop, .btnPlayTopMask {
+    position:absolute;
+    margin:0 0 0 25px;
+    padding:12px 0 0 15px;
+    width:175px;
+    height:75px;
+    border-radius: 15px;
+    background: #ffff00;
+    background: -moz-linear-gradient(165deg,  #ffff00 13%, #ffbf00 41%, #ffbf00 41%, #ffbf00 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(13%,#ffff00), color-stop(41%,#ffbf00), color-stop(41%,#ffbf00), color-stop(100%,#ffbf00));
+    background: -webkit-linear-gradient(165deg,  #ffff00 13%,#ffbf00 41%,#ffbf00 41%,#ffbf00 100%);
+    background: -o-linear-gradient(165deg,  #ffff00 13%,#ffbf00 41%,#ffbf00 41%,#ffbf00 100%);
+    background: -ms-linear-gradient(165deg,  #ffff00 13%,#ffbf00 41%,#ffbf00 41%,#ffbf00 100%);
+    background: linear-gradient(165deg,  #ffff00 13%,#ffbf00 41%,#ffbf00 41%,#ffbf00 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffff00', endColorstr='#ffbf00',GradientType=1 );
+    z-index:2;
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.39);
+    -moz-box-shadow:    0px 3px 10px 0px rgba(50, 50, 50, 0.39);
+    box-shadow:         0px 3px 10px 0px rgba(50, 50, 50, 0.39);
+}
+
+.btnPlayTopMask {
+    background-color: rgba(80, 255, 0, 0);
+    background: rgba(80, 255, 0, 0);
+    color: rgba(80, 255, 0, 0);
+    z-index:3;
+    cursor:pointer;
+    height:85px;
+}
+
+.btnPlayTop h1 {
+    font:23px Arial;
+    letter-spacing:-2px;
+    font-weight:bold;
+    color:#FFF;
+    margin:0;
+    padding:0;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1); 
+}
+
+.btnPlayTop hr {
+    margin:6px 0 5px -6px;
+    width:172px;
+    border-top: 1px solid #FFFF00;
+    border-bottom: 1px solid #E4AB00;
+    border-left:none;
+    border-right:none;
+}
+
+.btnPlayTop .fundo {
+    padding:6px 0 0 24px;
+    width:158px;
+    height:25px;
+    z-index:3;
+    background-color:#977200;
+    border-radius: 0 0 15px 15px;
+    margin: 5px 0 5px -11px;
+    -webkit-box-shadow: inset 0px 0px 21px 0px rgba(50, 50, 50, 0.68);
+    -moz-box-shadow:    inset 0px 0px 21px 0px rgba(50, 50, 50, 0.68);
+    box-shadow:         inset 0px 0px 21px 0px rgba(50, 50, 50, 0.68);
+}
+
+.trofeu {
+    width:26px;
+    height:28px;
+    position:absolute;
+    z-index:4;
+    background:url(../images/truco/cenario.png) no-repeat scroll -252px -302px;
+    margin: -22px 0 0 115px;
+}
+
+.stats, .fastMenu {
+    width:192px;
+    height:76px;
+    background-color:white;
+    margin:140px 0 10px 25px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBlMzkxYiIgc3RvcC1vcGFjaXR5PSIwLjY1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjUzJSIgc3RvcC1jb2xvcj0iIzBlMzkxYiIgc3RvcC1vcGFjaXR5PSIwLjQ1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZTM5MWIiIHN0b3Atb3BhY2l0eT0iMC40NSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(11, 43, 20, 0.65) 0%, rgba(14,57,27,0.45) 53%, rgba(14,57,27,0.45) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(11, 43, 20, 0.65)), color-stop(53%,rgba(14,57,27,0.45)), color-stop(100%,rgba(14,57,27,0.45)));
+    background: -webkit-linear-gradient(top,  rgba(11, 43, 20, 0.65) 0%,rgba(14,57,27,0.45) 53%,rgba(14,57,27,0.45) 100%);
+    background: -o-linear-gradient(top,  rgba(11, 43, 20, 0.65) 0%,rgba(14,57,27,0.45) 53%,rgba(14,57,27,0.45) 100%);
+    background: -ms-linear-gradient(top,  rgba(11, 43, 20, 0.65) 0%,rgba(14,57,27,0.45) 53%,rgba(14,57,27,0.45) 100%);
+    background: linear-gradient(to bottom,  rgba(11, 43, 20, 0.65) 0%,rgba(14,57,27,0.45) 53%,rgba(14,57,27,0.45) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a60e391b', endColorstr='#730e391b',GradientType=0 );
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow:    0px 0px 14px 0px rgba(0, 0, 0, 0.31);
+    box-shadow:         0px 0px 14px 0px rgba(0, 0, 0, 0.31);
+}
+
+.fastMenu {
+    margin:30px 0 10px 25px;
+    height:151px;
+}
+
+.helpMask, .regrasMask {
+    position:absolute;
+    height:76px;
+    width:192px;
+    background-color: rgba(80, 255, 0, 0);
+    background: rgba(80, 255, 0, 0);
+    color: rgba(80, 255, 0, 0);
+    z-index:3;
+    cursor:pointer;
+}
+
+h2 {
+    font:13px Arial;
+    color:#fff;
+    margin-top:18px;
+    text-align:center;
+}
+
+.players, .divisa, .rounds  {
+    width:85px;
+    height:100%;
+    float:left;
+    padding:0 0 0 5px;
+}
+
+.divisa {
+    width:5px;
+    padding-left:7px;
+}
+
+.divisa_vert, .divisa_vertNight {
+    width:1px;
+    height:53px;
+    background: rgb(0,0,0);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI2JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQyJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iIzk2OTY5NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkzJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 6%, rgba(150,150,150,1) 42%, rgba(150,150,150,1) 60%, rgba(0,0,0,1) 93%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(6%,rgba(0,0,0,1)), color-stop(42%,rgba(150,150,150,1)), color-stop(60%,rgba(150,150,150,1)), color-stop(93%,rgba(0,0,0,1)));
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 6%,rgba(150,150,150,1) 42%,rgba(150,150,150,1) 60%,rgba(0,0,0,1) 93%);
+    background: -o-linear-gradient(top,  rgba(0,0,0,1) 6%,rgba(150,150,150,1) 42%,rgba(150,150,150,1) 60%,rgba(0,0,0,1) 93%);
+    background: -ms-linear-gradient(top,  rgba(0,0,0,1) 6%,rgba(150,150,150,1) 42%,rgba(150,150,150,1) 60%,rgba(0,0,0,1) 93%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,1) 6%,rgba(150,150,150,1) 42%,rgba(150,150,150,1) 60%,rgba(0,0,0,1) 93%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=0 );
+    margin-top:11px;
+    float:left;
+}
+
+.divisa_vertNight {
+    background:#000;
+    opacity:0.7;
+}
+
+.rounds {
+    float:right;
+    width:90px;
+    padding:0;
+    
+}
+
+.players p, .rounds p {
+    font:19px Arial;
+    font-weight:bold;
+    text-align:center;
+    margin-top:5px;
+    color:#5CFF26;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+}
+
+.rounds p {
+    color:#FFFF26;
+    
+}
+
+.imgHelp {
+    float:left;
+    width:56px;
+    height:57px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -285px -299px;
+    margin:9px 8px 0 18px;
+}
+
+.imgRegras {
+    float:left;
+    width:66px;
+    height:54px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -346px -299px;
+    margin:11px 6px 0 10px;
+}
+
+.descr {
+    width: 91px;
+    height: 49px;
+    background: rgb(6,27,13);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxNSUiIHN0b3AtY29sb3I9IiMwNjFiMGQiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI4OCUiIHN0b3AtY29sb3I9IiMxMTM3MWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  rgba(6,27,13,1) 15%, rgba(17,55,31,1) 88%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(15%,rgba(6,27,13,1)), color-stop(88%,rgba(17,55,31,1)));
+    background: -webkit-linear-gradient(top,  rgba(6,27,13,1) 15%,rgba(17,55,31,1) 88%);
+    background: -o-linear-gradient(top,  rgba(6,27,13,1) 15%,rgba(17,55,31,1) 88%);
+    background: -ms-linear-gradient(top,  rgba(6,27,13,1) 15%,rgba(17,55,31,1) 88%);
+    background: linear-gradient(to bottom,  rgba(6,27,13,1) 15%,rgba(17,55,31,1) 88%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#061b0d', endColorstr='#11371f',GradientType=0 );
+    float:right;
+    margin:12px 12px 0 0;
+    font:11px Arial;
+    color:#FFF;
+    padding: 5px 0 0 5px;
+    line-height: 14px;
+}
+
+.divisa_hori, .divisa_horiNight, .divisa_horiOpc, .divisa_horiOpcNight {
+    width:174px;
+    height:1px;
+    background: rgb(0,0,0);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjI5JSIgc3RvcC1jb2xvcj0iIzYwNjA2MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY4JSIgc3RvcC1jb2xvcj0iIzYwNjA2MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(left,  rgba(0,0,0,1) 0%, rgba(96,96,96,1) 29%, rgba(96,96,96,1) 68%, rgba(0,0,0,1) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,1)), color-stop(29%,rgba(96,96,96,1)), color-stop(68%,rgba(96,96,96,1)), color-stop(100%,rgba(0,0,0,1)));
+    background: -webkit-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(96,96,96,1) 29%,rgba(96,96,96,1) 68%,rgba(0,0,0,1) 100%);
+    background: -o-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(96,96,96,1) 29%,rgba(96,96,96,1) 68%,rgba(0,0,0,1) 100%);
+    background: -ms-linear-gradient(left,  rgba(0,0,0,1) 0%,rgba(96,96,96,1) 29%,rgba(96,96,96,1) 68%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(96,96,96,1) 29%,rgba(96,96,96,1) 68%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 );
+}
+
+.divisa_horiNight, .divisa_horiOpcNight {
+    background:#000;
+    opacity: 0.7;
+}
+
+.boxDivisa {
+    padding-top: 8px;
+    width:192px;
+    height:0px;
+    clear:both;
+}
+
+/* ///////////////////////  Second  ////////////////////// */
+
+.boxLobby {
+    width:929px;
+    height:392px;
+    float:left;
+}
+
+.boxSala {
+    width:185px;
+    height:196px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -246px -73px;
+    float:left;
+}
+
+.topSala {
+    width:185px;
+    height:54px;
+}
+
+.numSala {
+    width:54px;
+    height:34px;
+    float:left;
+    padding:18px 0 0 ;
+}
+
+    .numSala h3 {
+        width:25px;
+        font:19px Arial;
+        font-weight:bold;
+        color:#FFF;
+        margin-left:17px;
+        text-align:center;
+    }
+
+.descSala {
+    float:right;
+    width:131px;
+    height:37px;
+    padding-top:14px;
+}
+
+.descSala h4 {
+    font:15px Arial;
+    font-weight:bold;
+    color:#FFF;
+}
+
+    .descSala p {
+        font:11px "Trebuchet MS";
+        color:#9797A6;
+    }
+
+.cadSala {
+    width:162px;
+    height:135px;
+    padding:0 0 0 16px;
+}
+
+.boxCad, .boxCadAdmin {
+    width:55px;
+    height:55px;
+    border:1px solid #999;
+    float:left;
+    margin:8px 0 0 9px;
+}
+
+.btnEntra, .btnStyleEntra {
+    width:50px;
+    height:33px;
+    position: absolute;
+    cursor:pointer;
+    font:11px Arial;
+    color:#FFF;
+    padding:22px 0 0 5px;
+}
+
+.btnStyleEntra {
+    cursor: default;
+}
+
+.cadAvatar {
+    display:none;
+}
+
+.showAvatar {
+    display:block;
+    width:55px;
+    height:55px;
+}
+
+#optionLobby {
+    width:178px;
+    height:392px;
+    float:left;
+}
+
+.bodyOption {
+    width:165px;
+    height:392px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -444px -41px;
+    float:left;
+}
+
+.headIntOption {
+    height:107px;
+    width:165px;
+    text-align:center;
+    padding-top: 25px;
+}
+
+    .headIntOption h5, .headIntOption h6, .bodyIntOption li {
+        font:23px Arial;
+        font-weight:bold;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+        color:#FFF;
+        letter-spacing:-2px;
+    }
+
+    .headIntOption h6
+    {
+        font:49px Arial;
+        font-weight:bold;
+        margin-top:5px;
+    }
+
+.bodyIntOption {
+        width:165px;
+        height:187px;
+        text-align:center;
+        padding: 5px 0 0 0;
+}
+
+    .bodyIntOption ul {
+        list-style:none;
+    }
+
+    .bodyIntOption li {
+        font:17px Arial;
+        font-weight:bold;
+        letter-spacing:0;
+        margin:7px 0 0 0;
+        cursor:pointer;
+    }
+
+.optionSelect {
+    width:145px;
+    height:27px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -22px -297px;
+    position:absolute;
+    margin:2px 0 0 9px;
+    cursor:pointer;
+}
+
+.bottomIntOption {
+    width:108px;
+    height:51px;
+    padding:2px 30px 0 27px;
+}
+
+.btnUpOpt, .btnDownOpt {
+    float:left;
+    width:38px;
+    height:38px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -171px -297px;
+    border:none;
+}
+
+.btnDownOpt {
+    float:right;
+    background:url(../images/truco/cenario.png) no-repeat scroll -209px -297px;
+}
+
+/* ///////////////////////  Three  ////////////////////// */
+
+.chat, .users, .menu {
+    width:614px;
+    height:208px;
+    background:rgba(18, 73, 34, 0.6);
+    float:left;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    border-radius: 14px;
+}
+
+.c_topo, .c_subtopo, .c_topo_hat, .c_subtopo_hat {
+    width:614px;
+    height:35px;
+    background:url(../images/truco/cenario.png) no-repeat scroll 0 0;
+    -moz-border-radius-topleft: 14px;
+    -webkit-border-top-left-radius: 14px;
+     border-top-left-radius: 14px;
+    -moz-border-radius-topright: 14px;
+    -webkit-border-top-right-radius: 14px;
+    border-top-right-radius: 14px;
+    -webkit-box-shadow: inset 0px 0px 11px 2px rgba(0, 0, 0, 1);
+    -moz-box-shadow:    inset 0px 0px 11px 2px rgba(0, 0, 0, 1);
+    box-shadow:         inset 0px 0px 11px 2px rgba(0, 0, 0, 1);
+    position:absolute;
+}
+
+.c_subtopo, .c_subtopo_hat {
+    background:none;
+    -webkit-box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow:    0px 0px 11px 0px rgba(0, 0, 0, 1);
+    box-shadow:         0px 0px 11px 0px rgba(0, 0, 0, 1);
+    font:16px Arial;
+    font-weight:bold;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+    color:#FFF;
+    letter-spacing:-1px;
+    padding: 10px 0 0 34px;
+    width:580px;
+    height:25px;
+}
+
+.c_msg, .c_msg_hat, .c_msg_hat_user {
+    margin-top: 34px;
+    width: 577px;
+    height: 122px;
+    background-color:#07200F;
+    border:1px solid #004700;
+    -webkit-box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow:    inset 0px 0px 9px 0px rgba(0, 0, 0, 1);
+    box-shadow:         inset 0px 0px 9px 0px rgba(0, 0, 0, 1);
+    font: 12px Arial;
+    padding: 3px 0 3px 10px;
+    overflow:hidden;
+}
+
+.c_msg_sys , .c_msg_user,  .c_user_sys {
+    color:#D9D900;
+    clear:both;
+    margin-top: 4px;
+}
+
+.c_msg_user {
+    color:#FFF;
+}
+
+.c_msg_user span {
+    font-weight:bold;
+    color:#D9D900;
+}
+
+.c_box {
+    width:614px;
+    height:30px;
+}
+
+.c_sub_box {
+    width:505px;
+    height:44px;
+    float:left;
+}
+
+.c_sub_btn {
+    width:109px;
+    height:44px;
+    float:right;
+}
+
+.c_txt {
+    width:482px;
+    height:27px;
+    background-color:#07200F;
+    border:1px solid #004700;
+    -webkit-box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow:    inset 0px 0px 9px 0px rgba(0, 0, 0, 1);
+    box-shadow:         inset 0px 0px 9px 0px rgba(0, 0, 0, 1);
+    margin:6px 0 0 12px;
+    padding:0 0 0 10px;
+    color:#FFF;
+    font:12px Arial;
+}
+
+.c_btn_enviar {
+	-moz-box-shadow:inset 0px 1px 0px 0px #a6827e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #a6827e;
+	box-shadow:inset 0px 1px 0px 0px #a6827e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #000000), color-stop(1, #603018));
+	background:-moz-linear-gradient(top, #000000 5%, #603018 100%);
+	background:-webkit-linear-gradient(top, #000000 5%, #603018 100%);
+	background:-o-linear-gradient(top, #000000 5%, #603018 100%);
+	background:-ms-linear-gradient(top, #000000 5%, #603018 100%);
+	background:linear-gradient(to bottom, #000000 5%, #603018 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#603018',GradientType=0);
+	background-color:#000000;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #20170e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:arial;
+	font-size:13px;
+	padding:6px 23px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #000000;
+    margin:6px 0 0 7px;
+    width:89px;
+}
+.c_btn_enviar:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #603018), color-stop(1, #000000));
+	background:-moz-linear-gradient(top, #603018 5%, #000000 100%);
+	background:-webkit-linear-gradient(top, #603018 5%, #000000 100%);
+	background:-o-linear-gradient(top, #603018 5%, #000000 100%);
+	background:-ms-linear-gradient(top, #603018 5%, #000000 100%);
+	background:linear-gradient(to bottom, #603018 5%, #000000 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#603018', endColorstr='#000000',GradientType=0);
+	background-color:#603018;
+}
+.c_btn_enviar:active {
+	position:relative;
+	top:1px;
+}
+
+/* Users */
+
+.users, .menu {
+    margin:0 0 0 29px;
+    width:201px;
+}
+
+.c_topo_hat {
+    width:201px;
+}
+
+.c_subtopo_hat {
+    width:167px;
+}
+
+.c_msg_hat, .c_msg_hat_user {
+    width:174px;
+    height:158px;
+    padding:0;
+}
+
+a.c_user_sys {
+    text-decoration:none;
+    color:#FFF;
+}
+
+.c_msg_hat .disable, .c_msg_hat_user .disable {
+        width:14px;
+        height:15px;
+        background:url(../images/truco/cenario.png) no-repeat scroll -408px -407px;
+        margin:0 5px 0 10px;
+        float:left;
+}
+
+.c_msg_hat .enable, .c_msg_hat_user .enable {
+        width:14px;
+        height:15px;
+        background:url(../images/truco/cenario.png) no-repeat scroll -422px -407px;
+        margin:0 5px 0 10px;
+        float:left;
+}
+
+.c_msg_hat ul, .c_msg_hat_user ul {
+    list-style:none;
+} 
+
+.c_msg_hat li, .c_msg_hat_user li {
+    clear:both;
+    margin-top: 5px;
+} 
+
+.c_msg_hat_user {
+    padding: 3px 0;
+    height:152px;
+}
+
+/* Opções */
+
+.c_msg_hat ul {
+    list-style:none;
+} 
+
+.opcoes li {
+    clear:both;
+    margin-top: 5px;
+    text-align:center;
+    width:174px;
+    margin-top: 7px;
+}
+
+    .opcoes li a {
+        text-decoration:none;
+        width:174px;
+        font:14px Arial;
+        color:#FFF;
+    }
+
+.divisa_horiOpcNight {
+    margin-top:7px;
+}
+
+/**************************************/
+/** MODAL **/
+/**************************************/
+
+.modalMesa {
+    width:130px;
+    padding-top:30px;
+    height:205px;
+    float:left;
+}
+
+.modalConfig {
+    width:200px;
+    padding-top: 15px;
+    height:100%;
+    float:right;
+}
+
+.boxModalMesa {
+    margin: 19px 0 0 11px;
+    background:url(../images/truco/cenario.png) no-repeat scroll -25px -325px;
+    width:117px;
+    height:97px;
+}
+
+.boxCadAdmin {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+p.modalDescr {
+    font:11px Arial;
+    color:#949494;;
+}
+
+.btn_cria_sala {
+    width:120px;
+    margin:0;
+}
+
+.boxModalConfig {
+    margin-bottom:10px;
+}
+
+.modalFieldInfo {
+    font:11px Arial !important;
+    border:1px solid #BBBBBB;
+    background:#EEEEEE;
+    padding:3px 4px;
+}
+
+.modalFieldInfo span {
+    color:#ff0000;
+}
+
+/**************************************/
+/** MODAL **/
+/**************************************/
+.modalBoxField {
+    padding-bottom: 18px;
+}
+
+.modalFieldSenha {
+    color:#000 !important;
+    visibility:hidden;
+}
+
+.modalOpt {
+    color:#000 !important;
+    font:13px Arial;
+}
+
+.txtSenhaSala {
+    
+}
+
+#modalConfigSelect p, #modalConfigUsuario p, #modalConfigSenha p  {
+    color:#000 !important;
+    font:12px Arial;
+    margin-bottom:15px;
+}
+
+/* COMBO DDS */
+
+.dd-select {
+    color:#000 !important;
+}
+
+.botao_cria_sala {
+    width: 150px;
+    margin: 0;
+    cursor:pointer;
+}
+
+.botao_pass_sala {
+    width: 70px;
+    margin: 0;
+    cursor:pointer;
+    padding: 5px 2px;
+}
+
+.botao_disable, .botao_disable:hover {
+    background:#E8E8E8;
+    color:#ADADAD;
+    border:1px solid #C4C4C4;
+    -moz-box-shadow:none;
+	-webkit-box-shadow:none;
+	box-shadow:none;
+    cursor:pointer;
+    text-shadow:none;
+}
